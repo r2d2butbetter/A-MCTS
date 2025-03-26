@@ -1,0 +1,12 @@
+*.ipynb filter=nbstripout
+*.ipynb diff=ipynb
+*.ipynb merge=ipynb
+
+# Ensure Unix line endings for Python files
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ipynb	diff=jupyternotebook
+
+*.ipynb	merge=jupyternotebook

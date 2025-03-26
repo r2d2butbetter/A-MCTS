@@ -1,0 +1,22 @@
+name: amcts
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - jupyter
+  - notebook
+  - ipykernel
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - networkx
+  - scipy
+  - tqdm
+  - pip
+  - pip:
+    - nbstripout
+    - graphviz
+    - pydot
+    - nbdime
