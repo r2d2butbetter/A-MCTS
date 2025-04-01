@@ -14,9 +14,7 @@ dependencies:
   - networkx
   - scipy
   - tqdm
-  - pip
-  - pip:
-    - nbstripout
-    - graphviz
-    - pydot
-    - nbdime
+  - nbstripout
+  - graphviz
+  - pydot
+  - nbdime

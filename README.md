@@ -2,6 +2,8 @@
 
 This repository contains our implementation of the paper "A-MCTS: Adaptive Monte Carlo Tree Search for Temporal Path Discovery".
 
+- [Find the Paper here](https://ieeexplore.ieee.org/document/9580584)
+
 ## Setup Instructions
 
 ### Prerequisites
