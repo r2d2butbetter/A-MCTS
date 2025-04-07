@@ -38,9 +38,22 @@ This repository contains our implementation of the paper "A-MCTS: Adaptive Monte
 
 ## Repository Structure
 
-- `notebooks/`: Contains all Jupyter notebooks for the A-MCTS implementation
-  - `examples/`: Example notebooks demonstrating the A-MCTS algorithm
-- `data/`: Data used in experiments (add to .gitignore if files are large)
+a-mcts
+├── notebooks
+│   ├── 01_introduction.ipynb         # Overview of the project and algorithm
+│   ├── 02_graph_representation.ipynb # Working with AttributedDynamicGraph and TemporalPath
+│   ├── 03_mcts_algorithm.ipynb       # A-MCTS algorithm implementation and examples
+│   └── 04_experiments.ipynb          # Running experiments and visualizing results
+│
+├── src
+│   ├── __init__.py
+│   ├── graph.py                      # AttributedDynamicGraph and TemporalPath classes
+│   ├── embedding.py                  # EdgeEmbedding class
+│   ├── memory.py                     # ReplayMemory class
+│   └── amcts.py                      # TreeNode and AMCTS classes
+│
+├── examples.py                       # Example graph creation and simple run
+└── README.md                         # This file
 
 ## Git and Jupyter Notebooks
 
