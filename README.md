@@ -36,6 +36,20 @@ This repository contains our implementation of the paper "A-MCTS: Adaptive Monte
    ```
    Or if using VS Code, open VS Code and select the "amcts" kernel when opening a notebook.
 
+
+## Tasks
+
+- [x] Implement A-MCTS algorithm
+- [x] Run experiments
+- [ ] Report
+- [ ] Visualize results
+- [ ] UI
+- [ ] Documentation
+- [ ] Tests & Datasets
+- [ ] Benchmarking
+- [ ] Presentation
+- [ ] 
+
 ## Repository Structure
 
 a-mcts
