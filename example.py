@@ -13,11 +13,16 @@ def create_example_graph() -> AttributedDynamicGraph:
     # Add edges with attributes (cost and time)
     # Format: (source, dest, length, dep_time, arr_time, attributes)
     
-    # Simple graph with fewer nodes and edges
-    graph.add_edge(1, 2, 2, 0, 2, {"cost": 2, "time": 2})
-    graph.add_edge(1, 3, 3, 0, 3, {"cost": 3, "time": 3})
-    graph.add_edge(2, 4, 2, 3, 5, {"cost": 2, "time": 2})
-    graph.add_edge(3, 4, 2, 4, 6, {"cost": 2, "time": 2})
+    graph.add_edge(1, 2, 2, 0, 2,  {"cost": 2, "time": 2})
+    graph.add_edge(1, 3, 3, 0, 3,  {"cost": 3, "time": 3})
+    graph.add_edge(2, 4, 2, 3, 5,  {"cost": 2, "time": 2})
+    graph.add_edge(3, 4, 2, 4, 6,  {"cost": 2, "time": 2})
+    graph.add_edge(2, 5, 4, 5, 9,  {"cost": 4, "time": 4})
+    graph.add_edge(5, 6, 3, 9, 12, {"cost": 3, "time": 3})
+    graph.add_edge(4, 6, 2, 6, 8,  {"cost": 2, "time": 2})
+    graph.add_edge(3, 5, 5, 4, 9,  {"cost": 5, "time": 5})
+    graph.add_edge(6, 7, 1, 12, 13,{"cost": 1, "time": 1})
+    graph.add_edge(5, 7, 2, 10, 12,{"cost": 2, "time": 2})
     
     return graph
 
@@ -43,8 +48,11 @@ def main():
     
     # Define source, destination, constraints and time interval
     source = 1
-    destination = 4
-    constraints = {"cost": 10, "time": 12}
+    destination = 7
+    constraints = {"cost": 6, "time": 15}  # High constraint values to allow more paths
+    # Note: Setting high constraints allows the algorithm to explore more paths, 
+    # including those with higher costs and times.
+    
     time_interval = (0, 15)
     
     print(f"Finding path from {source} to {destination} with constraints: {constraints}")
