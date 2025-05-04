@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-MCTS Path Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>A-MCTS Path Visualization</h1>
+                    <p>Adaptive Monte Carlo Tree Search for Temporal Path Discovery</p>
+                </div>
+                <div class="header-controls">
+                    <button id="editGraphBtn" class="btn-header">Edit Graph</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <div class="input-panel">
+                    <h2>Path Parameters</h2>
+                    <form id="pathForm">
+                        <div class="form-group">
+                            <label for="source">Source Node:</label>
+                            <select id="source" name="source" required>
+                                {% for node in nodes %}
+                                <option value="{{ node }}">{{ node }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="destination">Destination Node:</label>
+                            <select id="destination" name="destination" required>
+                                {% for node in nodes %}
+                                <option value="{{ node }}">{{ node }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cost_constraint">Cost Constraint:</label>
+                            <input type="number" id="cost_constraint" name="cost_constraint" min="0" value="6" step="0.5" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="time_constraint">Time Constraint:</label>
+                            <input type="number" id="time_constraint" name="time_constraint" min="0" value="15" step="0.5" required>
+                        </div>
+                        
+                        <div class="form-group time-range">
+                            <label>Time Interval:</label>
+                            <div class="range-inputs">
+                                <input type="number" id="start_time" name="start_time" min="0" value="0" required>
+                                <span>to</span>
+                                <input type="number" id="end_time" name="end_time" min="0" value="{{ max_time }}" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="findPathBtn" class="btn-primary">Find Path</button>
+                    </form>                </div>
+                
+                <div class="results-panel" id="resultsPanel">
+                    <h2>Path Results</h2>
+                    <div id="pathResults">
+                        <p class="no-results">No path results yet. Enter parameters and click "Find Path" to start.</p>
+                    </div>
+                </div>
+            </aside>
+            
+            <main class="main-content">
+                <div class="graph-container">
+                    <div class="graph-controls">
+                        <div class="control-group">
+                            <label for="zoom">Zoom:</label>
+                            <button id="zoomIn" class="btn-small">+</button>
+                            <button id="zoomOut" class="btn-small">-</button>
+                            <button id="resetZoom" class="btn-small">Reset</button>
+                        </div>                        
+                        <div class="view-options">
+                            <input type="checkbox" id="showEdgeLabels" checked>
+                            <label for="showEdgeLabels">
+                                Show Edge Labels
+                            </label>
+                            <input type="checkbox" id="highlightPath" checked>
+                            <label for="highlightPath">
+                                Highlight Found Path
+                            </label>
+                        </div>
+                    </div>
+                    <svg id="graphVisualization"></svg>
+                </div>
+
+                <div class="timeline-container">
+                    <h3>Temporal Path Timeline</h3>
+                    <div id="timeline"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <div id="loading-indicator">
+        <div class="spinner"></div>
+        <div>Computing Path...</div>
+    </div>
+
+    <!-- Notification system -->    
+    <!-- Graph Editor Modal -->
+    <div id="graphEditorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Graph Editor</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="graph-control-buttons">
+                    <button id="resetExampleBtn" class="btn-secondary">Reset Example Graph</button>
+                    <button id="clearGraphBtn" class="btn-warning">Clear Graph</button>
+                </div>
+
+                <!-- Node Addition -->
+                <div class="editor-section">
+                    <h3>Add Node</h3>                    <div class="form-group">
+                        <label for="newNodeId">Node ID:</label>
+                        <input type="number" id="newNodeId" min="1" step="1" value="1" required>
+                        <button id="addNodeBtn" class="btn-primary">Add Node</button>
+                    </div>
+                </div>
+
+                <!-- Edge Addition -->
+                <div class="editor-section">
+                    <h3>Add Edge</h3>
+                    <div class="form-group">
+                        <label for="edgeSource">Source:</label>
+                        <input type="number" id="edgeSource" min="1" step="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edgeTarget">Target:</label>
+                        <input type="number" id="edgeTarget" min="1" step="1" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edgeLength">Length:</label>
+                        <input type="number" id="edgeLength" min="0.1" step="0.1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edgeDepTime">Departure Time:</label>
+                        <input type="number" id="edgeDepTime" min="0" step="1" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edgeArrTime">Arrival Time:</label>
+                        <input type="number" id="edgeArrTime" min="1" step="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edgeCost">Cost:</label>
+                        <input type="number" id="edgeCost" min="0" step="0.1" value="1" required>
+                    </div>                    <div class="form-group">
+                        <label for="edgeTime">Time:</label>
+                        <input type="number" id="edgeTime" min="0" step="0.1" value="1" required>
+                    </div>
+                    <button id="addEdgeBtn" class="btn-primary">Add Edge</button>
+                </div>
+
+                <!-- Edge Deletion -->
+                <div class="editor-section">
+                    <h3>Delete Edge</h3>
+                    <div class="form-group">
+                        <label for="deleteSource">Source:</label>
+                        <input type="number" id="deleteSource" min="1" step="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="deleteTarget">Target:</label>
+                        <input type="number" id="deleteTarget" min="1" step="1" value="2" required>
+                    </div>                    <div class="form-group">
+                        <label for="deleteDepTime">Departure Time:</label>
+                        <input type="number" id="deleteDepTime" min="0" step="1" value="0" required>
+                    </div>
+                    <button id="deleteEdgeBtn" class="btn-warning">Delete Edge</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification" class="notification">
+        <span id="notification-message"></span>
+        <span class="notification-close">&times;</span>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
