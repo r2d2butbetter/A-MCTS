@@ -19,3 +19,8 @@ dependencies:
   - pydot
   - nbdime
   - folium
+  - flask
+  - werkzeug
+  - pip
+  - pip:
+    - gunicorn==22.0.0

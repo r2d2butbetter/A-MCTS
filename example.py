@@ -49,7 +49,7 @@ def main():
     # Define source, destination, constraints and time interval
     source = 1
     destination = 7
-    constraints = {"cost": 6, "time": 15}  # High constraint values to allow more paths
+    constraints = {"cost": 10, "time": 15}  # High constraint values to allow more paths
     # Note: Setting high constraints allows the algorithm to explore more paths, 
     # including those with higher costs and times.
     
