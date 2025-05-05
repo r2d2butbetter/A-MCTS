@@ -8,9 +8,17 @@
                 "requirementsPath": "requirements-vercel.txt",
                 "maxLambdaSize": "15mb"
             }
+        },
+        {
+            "src": "static/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
         {
             "src":"/(.*)", 
             "dest":"app.py"
