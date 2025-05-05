@@ -6,7 +6,7 @@
             "config": {
                 "runtime": "python3.9",
                 "requirementsPath": "requirements-vercel.txt",
-                "maxLambdaSize": "15mb"
+                "maxLambdaSize": "50mb"
             }
         },
         {

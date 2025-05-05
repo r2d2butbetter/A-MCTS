@@ -11,3 +11,6 @@ colorama==0.4.6
 importlib-metadata==8.7.0
 itsdangerous==2.2.0
 zipp==3.21.0
+pandas
+matplotlib
+scipy
