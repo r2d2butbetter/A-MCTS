@@ -1,0 +1,5 @@
+data/
+notebooks/
+__pycache__/
+*.pyc
+.env
