@@ -1,5 +1,8 @@
-flask==2.0.1
-gunicorn==20.1.0
-werkzeug==2.0.1
-numpy==1.21.0
-networkx==2.6.3
+numpy
+math
+typing
+random
+collections
+json
+networkx
+flask
