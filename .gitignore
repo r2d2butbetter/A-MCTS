@@ -52,3 +52,6 @@ Thumbs.db
 
 *.pdf
 .vercel
+
+# college purposes
+user_guide.md
