@@ -29,13 +29,7 @@ python app.py  # Then navigate to http://localhost:5000
 
 ## Citation
 
-```bibtex
-@INPROCEEDINGS{9580584,
-  author={Feng, Song and Song, Jiafei and Li, Xiuxian and Zeng, Xinwang},
-  booktitle={2021 International Joint Conference on Neural Networks (IJCNN)}, 
-  title={A-MCTS: Adaptive Monte Carlo Tree Search for Temporal Path Discovery}, 
-  year={2021},
-  pages={1-8},
-  doi={10.1109/IJCNN52387.2021.9580584}
-}
-```
+P. Ding, G. Liu, Y. Wang, K. Zheng and X. Zhou, "A-MCTS: Adaptive Monte Carlo Tree Search for Temporal Path Discovery," in IEEE Transactions on Knowledge and Data Engineering, vol. 35, no. 3, pp. 2243-2257, 1 March 2023, doi: 10.1109/TKDE.2021.3120993.
+keywords: {Heuristic algorithms;Monte Carlo methods;Vehicle dynamics;Costs;Memory management;Estimation;Urban areas;Temporal path;monte carlo tree;path finding},
+
+
